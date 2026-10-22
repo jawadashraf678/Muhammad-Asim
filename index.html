@@ -957,25 +957,113 @@
       color: var(--gold);
     }
 
+    /* CONTACT FORM SUCCESS CARD */
+    .contact-success-card {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem;
+      background: rgba(18, 16, 12, 0.95);
+      border: 1px solid rgba(224, 123, 57, 0.4);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 35px rgba(224, 123, 57, 0.18);
+      border-radius: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1rem;
+      animation: successPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes successPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(18px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .success-icon-wrap {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224, 123, 57, 0.3) 0%, rgba(18, 16, 12, 0.8) 70%);
+      border: 1.5px solid var(--orange);
+      box-shadow: 0 0 25px rgba(224, 123, 57, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.3rem;
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(224, 123, 57, 0.35);
+        border-color: var(--orange);
+      }
+      50% {
+        box-shadow: 0 0 35px rgba(245, 201, 122, 0.6);
+        border-color: var(--gold);
+      }
+    }
+
+    .success-title {
+      font-family: "DM Serif Display", serif;
+      font-size: 2rem;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .success-desc {
+      color: rgba(253, 246, 238, 0.8);
+      font-size: 0.98rem;
+      max-width: 440px;
+      line-height: 1.65;
+    }
+
     /* TOAST NOTIFICATION */
     .toast {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      background: rgba(18, 16, 12, 0.95);
+      background: rgba(18, 16, 12, 0.96);
       border: 1px solid var(--orange);
-      box-shadow: 0 10px 30px rgba(224, 123, 57, 0.3);
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(224, 123, 57, 0.3);
+      border-radius: 14px;
+      padding: 1.1rem 1.6rem;
       color: var(--cream);
       font-family: "Space Mono", monospace;
       font-size: 0.8rem;
-      z-index: 1000;
+      z-index: 99999;
       opacity: 0;
       transform: translateY(20px);
-      transition: all 0.4s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
       max-width: calc(100vw - 2rem);
+      backdrop-filter: blur(12px);
+    }
+
+    .toast-content {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      text-align: left;
+    }
+
+    .toast-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(224, 123, 57, 0.2);
+      border: 1px solid var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .toast.show {
@@ -1598,14 +1686,6 @@
       </p>
 
       <div class="contact-buttons">
-        <a href="mailto:work.muhammadasim@gmail.com" class="contact-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          work.muhammadasim@gmail.com
-        </a>
-
         <a href="https://www.linkedin.com/in/muhammad-asim001" target="_blank" rel="noopener" class="contact-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -1629,17 +1709,30 @@
           <input type="text" id="name" class="form-input" placeholder="e.g. Jane Doe" required />
         </div>
         <div class="form-group">
-          <label for="email">Your Email</label>
-          <input type="email" id="email" class="form-input" placeholder="e.g. jane@example.com" required />
-        </div>
-        <div class="form-group">
           <label for="message">Message</label>
           <textarea id="message" class="form-input" placeholder="Tell me about your project or business process needs..." required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">
-          Send Message
+        <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%;">
+          <span id="submitBtnText">Send Message</span>
         </button>
       </form>
+
+      <!-- SUCCESS STATE CARD -->
+      <div class="contact-success-card" id="contactSuccessCard" style="display: none;">
+        <div class="success-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h3 class="success-title">Message Sent Successfully!</h3>
+        <p class="success-desc">
+          Thank you for reaching out! Your message has been received successfully.
+        </p>
+        <button type="button" class="btn btn-primary" onclick="resetContactForm()" style="margin-top: 0.8rem; width: auto; padding: 0.85rem 2.2rem;">
+          Send Another Message
+        </button>
+      </div>
     </div>
   </section>
 
@@ -1652,7 +1745,20 @@
   </footer>
 
   <!-- TOAST NOTIFICATION -->
-  <div class="toast" id="toast">Message sent successfully! I will reply soon.</div>
+  <div class="toast" id="toast" role="alert" aria-live="polite">
+    <div class="toast-content">
+      <div class="toast-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <div>
+        <div style="font-weight: 700; color: var(--cream); font-size: 0.85rem; letter-spacing: 0.02em;">Message Sent Successfully!</div>
+        <div style="color: rgba(253, 246, 238, 0.7); font-size: 0.75rem; margin-top: 2px;">Your message has been received.</div>
+      </div>
+    </div>
+  </div>
 
   <!-- SCRIPTS -->
   <script>
@@ -1753,15 +1859,68 @@
       requestAnimationFrame(update);
     }
 
-    // FORM SUBMISSION & TOAST
+    // FORM SUBMISSION & SUCCESS HANDLING
     function handleFormSubmit(e) {
       e.preventDefault();
+
+      const submitBtn = document.getElementById("submitBtn");
+      const submitBtnText = document.getElementById("submitBtnText");
+      const form = document.getElementById("contactForm");
+      const successCard = document.getElementById("contactSuccessCard");
       const toast = document.getElementById("toast");
-      toast.classList.add("show");
-      document.getElementById("contactForm").reset();
+
+      // Button loading feedback
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.75";
+        submitBtn.style.cursor = "wait";
+        if (submitBtnText) submitBtnText.textContent = "Sending...";
+      }
+
+      // Smooth realistic transition without sending any email
       setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3500);
+        // Hide form and display prominent success card
+        if (form) {
+          form.style.display = "none";
+          form.reset();
+        }
+
+        if (successCard) {
+          successCard.style.display = "flex";
+          successCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+
+        // Show Toast Notification
+        if (toast) {
+          toast.classList.add("show");
+          setTimeout(() => {
+            toast.classList.remove("show");
+          }, 4500);
+        }
+
+        // Restore button state for future reset
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = "";
+          submitBtn.style.cursor = "";
+          if (submitBtnText) submitBtnText.textContent = "Send Message";
+        }
+      }, 450);
+    }
+
+    function resetContactForm() {
+      const form = document.getElementById("contactForm");
+      const successCard = document.getElementById("contactSuccessCard");
+
+      if (successCard) {
+        successCard.style.display = "none";
+      }
+      if (form) {
+        form.style.display = "grid";
+        form.reset();
+        const firstInput = form.querySelector("input");
+        if (firstInput) firstInput.focus();
+      }
     }
 
     // GLITTER PARTICLES CANVAS
